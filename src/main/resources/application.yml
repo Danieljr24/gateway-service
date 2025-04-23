@@ -12,10 +12,16 @@ spring:
       globalcors:
         corsConfigurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins: "http://localhost:8081"
             allowedMethods:
               - GET
               - POST
               - PUT
               - DELETE
               - OPTIONS
+            allowedHeaders:
+              - "Authorization"
+              - "Token"
+            allowCredentials: true
+jwt:
+  secret: 22341327198458621538721376214215432164821

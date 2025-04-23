@@ -25,7 +25,6 @@ public class JwtAuthenticationFilter implements GatewayFilter {
         var request = exchange.getRequest();
         var cookies = request.getCookies().get("ticket");
 
-        // Verificar si la cookie está presente
         if (cookies == null || cookies.isEmpty()) {
             logger.error("No se encontró la cookie 'ticket' en la solicitud.");
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
@@ -34,22 +33,32 @@ public class JwtAuthenticationFilter implements GatewayFilter {
 
         var token = cookies.get(0).getValue();
 
-        // Verificar si el token está vacío
         if (token == null || token.isEmpty()) {
             logger.error("El token JWT en la cookie 'ticket' está vacío.");
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
 
-        // Validar el token
         if (!jwtUtil.validateToken(token)) {
             logger.error("Token JWT no válido: {}", token);
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
 
-        // Continuar con el siguiente filtro si el token es válido
-        logger.info("Token JWT válido.");
-        return chain.filter(exchange);
+        var username = jwtUtil.getUsername(token);
+        System.out.println(username);
+        logger.info("Token JWT válido para usuario: {}", username);
+
+        // Reescribir la request para añadir un header con el username
+        var mutatedRequest = exchange.getRequest().mutate()
+                .header("   Token", username)
+                .build();
+
+        var mutatedExchange = exchange.mutate()
+                .request(mutatedRequest)
+                .build();
+
+        return chain.filter(mutatedExchange);
     }
+
 }
