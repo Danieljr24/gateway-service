@@ -12,7 +12,7 @@ import java.security.Key;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "22341327198458621538721376214215432164821";  // Debe coincidir con el de olimpo
+    private final String SECRET_KEY = "mi-clave-super-hiper-secreta";  // Debe coincidir con el de olimpo
 
     public Claims extractClaims(String token) {
         return Jwts.parser()
