@@ -24,4 +24,4 @@ spring:
               - "Token"
             allowCredentials: true
 jwt:
-  secret: mi-clave-super-hiper-secreta
+  secret: 123456789012346890123456781234567891234567890123456789

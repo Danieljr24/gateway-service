@@ -1,7 +1,6 @@
 package com.gateway.gateway_service.util;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -11,7 +10,7 @@ import java.util.Map;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "mi-clave-super-hiper-secreta";  // Debe coincidir con el de olimpo
+    private final String SECRET_KEY = "123456789012346890123456781234567891234567890123456789";  // Debe coincidir con el de olimpo
 
     public Claims extractClaims(String token) {
         return Jwts.parser()
