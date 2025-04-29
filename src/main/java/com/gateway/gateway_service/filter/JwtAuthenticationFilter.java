@@ -49,7 +49,6 @@ public class JwtAuthenticationFilter implements GatewayFilter {
         System.out.println(username);
         logger.info("Token JWT válido para usuario: {}", username);
 
-        // Reescribir la request para añadir un header con el username
         var mutatedRequest = exchange.getRequest().mutate()
                 .header("   Token", username)
                 .build();

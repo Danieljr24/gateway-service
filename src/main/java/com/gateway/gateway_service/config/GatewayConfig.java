@@ -15,18 +15,22 @@ public class GatewayConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
+    //CAMBIO A GRAPHQL
+
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-                // Rutas públicas (login y registro)
+
                 .route("olimpo-auth", r -> r.path("/auth/**")
                         .uri("http://localhost:8081"))
 
-                // Ruta protegida para el perfil de usuario
                 .route("olimpo-profile", r -> r.path("/auth/user/profile")
                         .filters(f -> f.filter(jwtAuthenticationFilter))
                         .uri("http://localhost:8081"))
 
                 .build();
+
+                //CREAR RUTAS PARA LLAMAR RESTO DE MICROSERVICIOS 
+                //DE THEMIS = FICHAS LLENAR FICHA VALIDANDO EXISTENCIA DE USUARIO CON kERBEROS
     }
 }
